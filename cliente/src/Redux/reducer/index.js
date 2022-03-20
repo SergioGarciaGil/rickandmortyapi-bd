@@ -12,7 +12,7 @@ function reducer(state = initialState, action) {
         characters: action.payload,
       };
     default:
-      state;
+      return state;
   }
 }
 

@@ -1,23 +1,27 @@
-import { BrowserRouter, Route } from "react-router-dom";
-import Nav from "./components/nav";
-import Character from "./components/character";
-import Characters from "./components/characters";
-import CharacterDeatil from "./components/characterDetail";
 import "./App.css";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getCharacters } from "./Redux/actions";
+import { Route } from "react-router-dom";
+// import character from "./components/character";
+import characters from "./components/characters";
+import Nav from "./components/nav";
+
+import CharacterDetail from "./components/characterDetail";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCharacters());
+  }, [dispatch]);
+
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Nav />
-        <Route exact path="/">
-          <Characters />
-        </Route>
-        <Route exact path="/character/:id">
-          <CharacterDeatil />
-        </Route>
-      </div>
-    </BrowserRouter>
+    <>
+      <Nav />
+      <Route path="/" component={characters} />
+      <Route exact path="/character/:id" component={CharacterDetail} />
+    </>
   );
 }
 
